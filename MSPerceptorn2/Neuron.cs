@@ -46,7 +46,7 @@ namespace MSPerceptorn2
 				foreach (Neuron n in previousNeurons.Keys)
 				{
 					res += previousNeurons[n] * n.output;
-                    Console.WriteLine(previousNeurons[n] + " : " + n.output);
+                    //Console.WriteLine(previousNeurons[n] + " : " + n.output);
                 }
 				
 			}
