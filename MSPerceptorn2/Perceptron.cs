@@ -5,6 +5,11 @@ namespace MSPerceptorn2
 	public class Perceptron
 	{
 		public List<List<Neuron>> neurons = new List<List<Neuron>>();
+
+		public Perceptron(Perceptron p)
+		{
+			
+		}
 		public Perceptron(int[] numberOfNeurons, double[] input, Function func, MyRandom rand)
 		{
 			for (int i = 0; i<numberOfNeurons.Length; i++)
@@ -54,11 +59,22 @@ namespace MSPerceptorn2
 					neurons[i][j].Calculate();
 					if (i == this.neurons.Count - 1)
 					{
-						res.Add(neurons[i][j].output);
+						res.Add(neurons[i][j].Output);
 					}
 				}
 			}
 			return res;
+		}
+
+		public List<double> GetResults()
+		{
+			List<double> toRet = new List<double>();
+			for (int i = 0; i < neurons[^1].Count; i++)
+			{
+				toRet.Add(neurons[^1][i].Output);
+			}
+
+			return toRet;
 		}
 	}
 }

@@ -3,9 +3,9 @@ namespace MSPerceptorn2
 {
 	public enum NeuronType
 	{
-		NEURON_INPUT,
-		NEURON_LAYER,
-		NEURON_OUTPUT
+		NeuronInput,
+		NeuronLayer,
+		NeuronOutput
 	}
 
 	public delegate double Function(double a);
@@ -13,11 +13,14 @@ namespace MSPerceptorn2
 	public class Neuron
 	{
         public Dictionary<Neuron, double> previousNeurons = new Dictionary<Neuron, double>();
-		public double output;
+		public double Output;
 		public NeuronType type;
 		public double? input;
 		public Function activateFunction;
 
+		public Dictionary<Neuron, double> newPreviousNeurons = new Dictionary<Neuron, double>();
+		public Dictionary<Neuron, double> dedout = new Dictionary<Neuron, double>();
+		public Dictionary<Neuron, double> doutdnet = new Dictionary<Neuron, double>();
 
 		public Neuron(double? input, Function function)
 		{
@@ -25,11 +28,11 @@ namespace MSPerceptorn2
 
 			if (input == null)
 			{
-				this.type = NeuronType.NEURON_LAYER;
+				this.type = NeuronType.NeuronLayer;
 			} else
 			{
 				this.input = input;
-				this.type = NeuronType.NEURON_INPUT;
+				this.type = NeuronType.NeuronInput;
 			}
 		}
 
@@ -37,7 +40,7 @@ namespace MSPerceptorn2
 		{
 			double res = 0;
 
-			if (this.type == NeuronType.NEURON_INPUT)
+			if (this.type == NeuronType.NeuronInput)
 			{
 				res = input ?? default(double);
 			} else
@@ -45,13 +48,19 @@ namespace MSPerceptorn2
 			
 				foreach (Neuron n in previousNeurons.Keys)
 				{
-					res += previousNeurons[n] * n.output;
+					res += previousNeurons[n] * n.Output;
                     //Console.WriteLine(previousNeurons[n] + " : " + n.output);
                 }
 				
 			}
-			this.output = activateFunction(res);
+			this.Output = activateFunction(res);
 			
+		}
+
+		public void ApplyNewWeights()
+		{
+			this.previousNeurons = newPreviousNeurons;
+			this.newPreviousNeurons = new Dictionary<Neuron, double>();
 		}
 	}
 }
