@@ -1,9 +1,28 @@
 ﻿using System;
+using System.Net.Mime;
+
 namespace MSPerceptorn2
 {
 	public class Program
 	{
 		public static void Main(string[] args)
+		{
+
+			Console.WriteLine("Welcome to image recognition neural network app. \nPlease locate dataset folder: ");
+			string datasetFolder = Console.ReadLine() ?? "none";
+			Console.WriteLine("Please enter number of variations of each number");
+			int numberOfVars = Int32.Parse(Console.ReadLine() ?? "none");
+			for (int i = 0; i < 10; i++)
+			{
+				for (int j = 0; j < numberOfVars; j++)
+				{
+					MediaTypeNames.Image img;
+				}
+			}
+
+		}
+
+		public static void Test()
 		{
 			Perceptron perceptron = new Perceptron(new int[] {2, 2, 3}, new double[] {0.5, 0.10, 0.3333}, x => activationFunction(x), (x, y) => GetRandomNumber(0, 1));
 			List<double> res = perceptron.Execute();
@@ -17,10 +36,8 @@ namespace MSPerceptorn2
 			{
 				bp.Execute();
 			}
-			
-			
 		}
-
+		
 		public static double GetRandomNumber(double minimum, double maximum)
 		{
 			Random random = new Random();
