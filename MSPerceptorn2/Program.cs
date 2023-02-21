@@ -7,8 +7,12 @@ namespace MSPerceptorn2
 	{
 		public static void Main(string[] args)
 		{
+			ExecuteProgram();
+		}
 
-			Console.WriteLine("Welcome to image recognition neural network app. \nPlease locate dataset folder: ");
+		private static void ExecuteProgram()
+		{
+			/*Console.WriteLine("Welcome to image recognition neural network app. \nPlease locate dataset folder: ");
 			string datasetFolder = Console.ReadLine() ?? "none";
 			Console.WriteLine("Please enter number of variations of each number");
 			int numberOfVars = Int32.Parse(Console.ReadLine() ?? "none");
@@ -16,10 +20,18 @@ namespace MSPerceptorn2
 			{
 				for (int j = 0; j < numberOfVars; j++)
 				{
-					MediaTypeNames.Image img;
+				}
+			} */
+			List<List<byte[]>> dataset = new List<List<byte[]>>();
+			for (int i = 0; i < 10; i++)
+			{
+				dataset.Add(new List<byte[]>());
+				for (int j = 0; j < 10; j++)
+				{
+					dataset[i].Add(File.ReadAllBytes("C:\\Users\\Vlad\\Desktop\\MSPerceptron\\dataset\\" + i + "_" +j + ".bmp"));
 				}
 			}
-
+			
 		}
 
 		public static void Test()
