@@ -9,19 +9,24 @@ namespace MSPerceptorn2
 	}
 
 	public delegate double Function(double a);
-
+	[Serializable]
 	public class Neuron
 	{
         public Dictionary<Neuron, double> previousNeurons = new Dictionary<Neuron, double>();
 		public double Output;
 		public NeuronType type;
-		public double? input;
+		public double? input { get; set; }
 		public Function activateFunction;
 
 		public Dictionary<Neuron, double> newPreviousNeurons = new Dictionary<Neuron, double>();
 		public Dictionary<Neuron, double> dedout = new Dictionary<Neuron, double>();
 		public Dictionary<Neuron, double> doutdnet = new Dictionary<Neuron, double>();
 
+		public Neuron()
+		{
+			
+		}
+		
 		public Neuron(double? input, Function function)
 		{
 			this.activateFunction = function;
@@ -59,9 +64,19 @@ namespace MSPerceptorn2
 
 		public void ApplyNewWeights()
 		{
+			/*Console.WriteLine("Old Weights: " + ToDebugString(previousNeurons) + " New weights: " + ToDebugString(newPreviousNeurons));
+			Console.WriteLine("__________________________________________"); */
 			this.previousNeurons = newPreviousNeurons;
 			this.newPreviousNeurons = new Dictionary<Neuron, double>();
 		}
+		
+		public static string ToDebugString<TKey, TValue> (IDictionary<TKey, TValue> dictionary)
+		{
+			return "{" + string.Join(",", dictionary.Select(kv => "" + kv.Value).ToArray()) + "}";
+		}
 	}
+	
+	
+	
 }
 

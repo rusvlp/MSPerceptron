@@ -4,9 +4,15 @@ public class BackPropagation
 {
     public List<double> target;
     public Perceptron perceptron;
-    public double etotal;
+    public double etotal { get; set; }
     public DerActivationFunction daf;
-    public delegate double DerActivationFunction(double x); 
+    public double teachSpeed = 3;
+    public delegate double DerActivationFunction(double x);
+
+    public BackPropagation()
+    {
+        
+    }
     
     public BackPropagation(List<double> target, Perceptron p, DerActivationFunction daf)
     {
@@ -59,8 +65,8 @@ public class BackPropagation
         }
 
         perceptron.Execute();
-        string results = "Results is: " + string.Join(", ", perceptron.GetResults());
-        Console.WriteLine(results);
+       // string results = "Results is: " + string.Join(", ", perceptron.GetResults());
+       // Console.WriteLine(results);
 
     }
 
@@ -81,7 +87,7 @@ public class BackPropagation
         {
             i.dedout[n] = step1;
             i.doutdnet[n] = step2;
-            newWeights.Add(n.previousNeurons[i] - (i.Output * step1 * step2));
+            newWeights.Add(n.previousNeurons[i] - teachSpeed * (i.Output * step1 * step2));
             n.newPreviousNeurons[i] = n.previousNeurons[i] - (i.Output * step1 * step2);
         }
         return newWeights;
@@ -97,7 +103,7 @@ public class BackPropagation
         {
             i.dedout[n] = step1;
             i.doutdnet[n] = step2;
-            newWeights.Add(n.previousNeurons[i] - (i.Output * step1 * step2));
+            newWeights.Add(n.previousNeurons[i] - teachSpeed * (i.Output * step1 * step2));
             n.newPreviousNeurons[i] = n.previousNeurons[i] - (i.Output * step1 * step2);
         }
 
